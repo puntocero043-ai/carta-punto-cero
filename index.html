@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Punto Cero - Carta Profesional</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #03050a;
+            --card-bg: rgba(15, 22, 41, 0.85);
+            --card-hover: rgba(22, 32, 57, 0.95);
+            --neon-cyan: #00f2fe;
+            --neon-pink: #ff007f;
+            --neon-purple: #9d4edd;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(0, 242, 254, 0.3);
+            --radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-base);
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(157, 78, 221, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 80% 80%, rgba(0, 242, 254, 0.12) 0%, transparent 45%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .snowflake {
+            position: fixed;
+            top: -20px;
+            color: rgba(0, 242, 254, 0.75);
+            user-select: none;
+            pointer-events: none;
+            z-index: 999;
+            animation: fall linear infinite;
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.8);
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-20px) translateX(0); }
+            50% { transform: translateY(50vh) translateX(15px); }
+            100% { transform: translateY(105vh) translateX(-15px); }
+        }
+
+        .menu-container {
+            width: 100%;
+            max-width: 950px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border-radius: var(--radius);
+            box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.9), 0 0 40px rgba(0, 242, 254, 0.15);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 130px;
+        }
+
+        .menu-header {
+            background: linear-gradient(180deg, #070b17 0%, rgba(15, 22, 41, 0.95) 100%);
+            text-align: center;
+            padding: 35px 15px 25px;
+            border-bottom: 2px solid rgba(0, 242, 254, 0.3);
+            position: relative;
+            box-shadow: inset 0 0 30px rgba(0, 242, 254, 0.05);
+        }
+
+        .logo-img {
+            max-width: 320px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 242, 254, 0.5);
+            animation: neonFlicker 3s infinite;
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes neonFlicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                box-shadow: 0 0 15px rgba(0, 242, 254, 0.4), 0 0 30px rgba(0, 242, 254, 0.6), inset 0 0 15px rgba(0, 242, 254, 0.3);
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                box-shadow: 0 0 5px rgba(0, 242, 254, 0.1);
+                opacity: 0.6;
+            }
+        }
+
+        .brand-badge {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--neon-cyan);
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: inline-block;
+            background: rgba(0, 242, 254, 0.1);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+            animation: badgePulse 3s infinite alternate;
+        }
+
+        @keyframes badgePulse {
+            0% { border-color: rgba(0, 242, 254, 0.3); box-shadow: 0 0 10px rgba(0, 242, 254, 0.2); }
+            100% { border-color: rgba(255, 0, 127, 0.5); box-shadow: 0 0 20px rgba(255, 0, 127, 0.4); }
+        }
+
+        .promo-banner {
+            background: linear-gradient(135deg, #ff007f, #9d4edd);
+            color: white;
+            padding: 12px 15px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 0.95rem;
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.6);
+            display: none; 
+            margin-top: 15px;
+            animation: promoGlow 1.5s infinite alternate;
+        }
+
+        @keyframes promoGlow {
+            0% { box-shadow: 0 0 15px rgba(255, 0, 127, 0.4); }
+            100% { box-shadow: 0 0 35px rgba(255, 0, 127, 0.9); }
+        }
+
+        .menu-controls {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-box input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 14px 18px;
+            border-radius: 12px;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: inset 0 0 10px rgba(0, 242, 254, 0.05);
+        }
+
+        .search-box input:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4), inset 0 0 10px rgba(0, 242, 254, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            align-items: center;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--neon-cyan);
+            color: var(--text-main);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+        }
+
+        .tab-btn.active {
+            background: var(--neon-cyan);
+            color: #03050a;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
+        }
+
+        .filter-available-btn {
+            background: rgba(0, 255, 128, 0.1) !important;
+            border-color: rgba(0, 255, 128, 0.4) !important;
+            color: #4ade80 !important;
+        }
+        .filter-available-btn.active {
+            background: #4ade80 !important;
+            color: #03050a !important;
+            box-shadow: 0 0 20px rgba(74, 222, 128, 0.6) !important;
+        }
+
+        .menu-body {
+            padding: 30px;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--neon-cyan);
+            margin: 30px 0 18px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid rgba(0, 242, 254, 0.25);
+            padding-bottom: 10px;
+            text-shadow: 0 0 12px rgba(0, 242, 254, 0.4);
+        }
+
+        .section-title.sold-out-title {
+            color: #f87171;
+            border-bottom-color: rgba(248, 113, 113, 0.25);
+            text-shadow: 0 0 12px rgba(248, 113, 113, 0.4);
+            margin-top: 40px;
+        }
+
+        .section-title:first-child {
+            margin-top: 0;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .menu-item {
+            background: rgba(15, 22, 41, 0.7);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .menu-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 14px;
+            border: 1px solid var(--neon-cyan);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+        }
+
+        .menu-item.sold-out {
+            opacity: 0.35;
+            filter: grayscale(0.8);
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            background: var(--card-hover);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 242, 254, 0.3);
+            border-color: var(--neon-cyan);
+        }
+
+        .menu-item:hover::after {
+            opacity: 1;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            gap: 10px;
+        }
+
+        .item-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .special-badge {
+            font-size: 0.68rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+        .badge-bestseller {
+            background: rgba(255, 165, 0, 0.2);
+            color: #fbbf24;
+            border: 1px solid rgba(255, 165, 0, 0.4);
+            box-shadow: 0 0 10px rgba(255, 165, 0, 0.2);
+        }
+        .badge-favorite {
+            background: rgba(157, 78, 221, 0.25);
+            color: #d8b4fe;
+            border: 1px solid rgba(157, 78, 221, 0.5);
+            box-shadow: 0 0 10px rgba(157, 78, 221, 0.3);
+        }
+        .badge-choice {
+            background: rgba(0, 242, 254, 0.15);
+            color: #67e8f9;
+            border: 1px solid rgba(0, 242, 254, 0.4);
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.2);
+        }
+
+        .item-price-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .item-price {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--neon-cyan);
+            background: rgba(0, 242, 254, 0.1);
+            padding: 4px 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            box-shadow: 0 0 8px rgba(0, 242, 254, 0.15);
+        }
+
+        .item-price.promo {
+            color: var(--neon-pink);
+            background: rgba(255, 0, 127, 0.15);
+            border-color: rgba(255, 0, 127, 0.5);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+        }
+
+        .old-price {
+            font-size: 0.8rem;
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .item-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+            margin-bottom: 15px;
+        }
+
+        .item-footer-tag {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 10px;
+        }
+
+        .status-badge {
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-badge.available {
+            background: rgba(0, 255, 128, 0.15);
+            color: #4ade80;
+            border: 1px solid rgba(0, 255, 128, 0.35);
+            box-shadow: 0 0 8px rgba(0, 255, 128, 0.2);
+        }
+
+        .status-badge.soldout {
+            background: rgba(255, 0, 0, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(255, 0, 0, 0.35);
+        }
+
+        .add-btn {
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            color: #03050a;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+        }
+        .add-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
+        }
+
+        .cart-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(7, 11, 23, 0.98);
+            backdrop-filter: blur(15px);
+            border-top: 2px solid var(--neon-cyan);
+            padding: 12px 20px;
+            z-index: 1000;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 242, 254, 0.2);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        .cart-bar.visible {
+            transform: translateY(0);
+        }
+
+        .location-selector-box {
+            background: rgba(0, 242, 254, 0.08);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            padding: 8px 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .location-selector-box label {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+        }
+        .location-selector-box select {
+            background: #070b17;
+            color: var(--text-main);
+            border: 1px solid rgba(0, 242, 254, 0.5);
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .cart-preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .cart-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .cart-count {
+            font-size: 0.85rem;
+            color: var(--neon-cyan);
+            font-weight: 700;
+        }
+        .cart-total {
+            font-size: 1.15rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 900;
+            color: var(--text-main);
+        }
+
+        .cart-toggle-text {
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            text-decoration: underline;
+            margin-top: 2px;
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .whatsapp-order-btn {
+            background: #25d366;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 0.88rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.5);
+            text-decoration: none;
+            transition: transform 0.2s;
+        }
+        .whatsapp-order-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .clear-cart-btn {
+            background: rgba(255, 0, 0, 0.15);
+            color: #f87171;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            padding: 10px 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.82rem;
+            transition: background 0.2s;
+        }
+        .clear-cart-btn:hover {
+            background: rgba(255, 0, 0, 0.3);
+        }
+
+        .cart-details-panel {
+            max-height: 0;
+            overflow-y: auto;
+            transition: max-height 0.3s ease;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .cart-bar.expanded .cart-details-panel {
+            max-height: 200px;
+            margin-top: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .cart-item-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.9rem;
+        }
+        .cart-item-name {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .qty-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            border: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .qty-btn:hover {
+            background: var(--neon-cyan);
+            color: #03050a;
+        }
+        .cart-item-price {
+            color: var(--neon-cyan);
+            font-weight: 700;
+            min-width: 70px;
+            text-align: right;
+        }
+
+        .menu-footer {
+            background: #020307;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 25px;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            box-shadow: inset 0 0 20px rgba(0, 242, 254, 0.03);
+        }
+
+        .menu-footer span {
+            color: var(--neon-cyan);
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="cartBar" class="cart-bar">
+        <div class="location-selector-box">
+            <label for="tableSelect">📍 ¿Dónde te encuentras?</label>
+            <select id="tableSelect" onchange="updateCartUI()">
+                <option value="">-- Selecciona Mesa o Barra --</option>
+                <optgroup label="Mesas">
+                    <option value="Mesa 1">Mesa 1</option>
+                    <option value="Mesa 2">Mesa 2</option>
+                    <option value="Mesa 3">Mesa 3</option>
+                    <option value="Mesa 4">Mesa 4</option>
+                    <option value="Mesa 5">Mesa 5</option>
+                    <option value="Mesa 6">Mesa 6</option>
+                    <option value="Mesa 7">Mesa 7</option>
+                    <option value="Mesa 8">Mesa 8</option>
+                    <option value="Mesa 9">Mesa 9</option>
+                    <option value="Mesa 10">Mesa 10</option>
+                    <option value="Mesa 11">Mesa 11</option>
+                    <option value="Mesa 12">Mesa 12</option>
+                    <option value="Mesa 13">Mesa 13</option>
+                </optgroup>
+                <optgroup label="Barras">
+                    <option value="Barra Interna">Barra Interna</option>
+                    <option value="Barra Externa">Barra Externa</option>
+                </optgroup>
+            </select>
+        </div>
+
+        <div class="cart-preview-header" onclick="toggleCartExpand()">
+            <div class="cart-info">
+                <span class="cart-count" id="cartCountText">0 productos seleccionados</span>
+                <span class="cart-total" id="cartTotalPrice">$0</span>
+                <span class="cart-toggle-text" id="toggleText">Ver detalle 🔼</span>
+            </div>
+            <div class="cart-actions" onclick="event.stopPropagation()">
+                <button class="clear-cart-btn" onclick="clearCart()" title="Vaciar todo">🗑️ Vaciar</button>
+                <a id="whatsappOrderLink" href="#" onclick="return handleSendOrder(event)" class="whatsapp-order-btn">
+                    💬 Enviar
+                </a>
+            </div>
+        </div>
+
+        <div class="cart-details-panel" id="cartDetailsPanel">
+        </div>
+    </div>
+
+    <div class="menu-container">
+        <header class="menu-header">
+            <img src="logo.jpeg" alt="Punto Cero Logo" class="logo-img">
+            <div>
+                <div class="brand-badge">⛰️ Bebidas Bajo Cero, La Unión, Nariño</div>
+            </div>
+            
+            <div id="promoBanner" class="promo-banner">
+                🔥 ¡PROMOCIÓN MARTES Y MIÉRCOLES! Granizados a solo $10.000 🔥
+            </div>
+        </header>
+
+        <div class="menu-controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="🔍 Buscar bebida, licor o ingrediente..." oninput="filterMenu()">
+            </div>
+            <div class="category-tabs">
+                <button class="tab-btn active" onclick="switchCategory('all')">Ver Todo</button>
+                <button class="tab-btn filter-available-btn" onclick="toggleAvailableOnly()">✨ Solo Disponibles</button>
+                <button class="tab-btn" onclick="switchCategory('granizados')">Granizados</button>
+                <button class="tab-btn" onclick="switchCategory('sodas-micheladas')">Sodas Micheladas</button>
+                <button class="tab-btn" onclick="switchCategory('sodas-saborizadas')">Sodas Saborizadas</button>
+                <button class="tab-btn" onclick="switchCategory('licores')">Licores & Botellas</button>
+                <button class="tab-btn" onclick="switchCategory('cervezas')">Cervezas</button>
+                <button class="tab-btn" onclick="switchCategory('varios')">Otros & Snacks</button>
+            </div>
+        </div>
+
+        <main class="menu-body" id="menu-content">
+        </main>
+
+        <footer class="menu-footer">
+            <p>Prohibida la venta de bebidas embriagantes a menores de edad • <span id="footer-date">Menú del día</span></p>
+        </footer>
+    </div>
+
+    <script>
+        const menuSections = [
+            {
+                id: "granizados",
+                title: "Granizados Saborizados (Con Alcohol)",
+                items: [
+                    { name: "Acapulco", desc: "Sangría, uva, arándano, triple sec y vodka", price: 12000, available: false },
+                    { name: "Baileys", desc: "Crema de whisky Baileys con café y toque de la casa", price: 12000, available: false, badge: "👑 Elegido Especial", badgeClass: "badge-choice" },
+                    { name: "Caipirinha Maracuyá", desc: "Maracuyá, mango biche, vodka y tequila", price: 12000, available: false },
+                    { name: "Cereza", desc: "Cereza y vodka", price: 12000, available: false },
+                    { name: "Fresa Boom", desc: "Fresa, whisky y vodka", price: 12000, available: false },
+                    { name: "Fresa Intensa", desc: "Fresa, cereza y vodka", price: 12000, available: false },
+                    { name: "Frutos Rojos", desc: "Frutos rojos, frutos del bosque y whisky", price: 12000, available: false },
+                    { name: "Fusión Cítrica", desc: "Mandarina, naranja y vodka", price: 12000, available: false },
+                    { name: "Ice Rusia", desc: "Limón y vodka", price: 12000, available: false },
+                    { name: "Jaggerbull", desc: "Perla negra, RedBull y vodka", price: 12000, available: false, badge: "⭐ Favorito del Público", badgeClass: "badge-favorite" },
+                    { name: "Lychee", desc: "Lychee, kola, champaña y vodka", price: 12000, available: true },
+                    { name: "Mango", desc: "Mango, vodka y tequila", price: 12000, available: true },
+                    { name: "Mango Tequila", desc: "Mango, vodka y tequila", price: 12000, available: false },
+                    { name: "Margarita Azul", desc: "Maracuyá, limón y vodka", price: 12000, available: false },
+                    { name: "Margarita Tahití", desc: "Limón, tequila, vodka y triple sec", price: 12000, available: false },
+                    { name: "Martini Manzana", desc: "Manzana verde y vodka", price: 12000, available: false },
+                    { name: "Mojito", desc: "Limón, yerbabuena y triple sec", price: 12000, available: false },
+                    { name: "Mora Azul", desc: "Mora y vodka", price: 12000, available: false },
+                    { name: "Nerds", desc: "Chicle y vodka", price: 12000, available: false },
+                    { name: "Ojo de Diablo", desc: "Kola, tequila y champaña", price: 12000, available: false },
+                    { name: "Pasión Purple", desc: "Uva y vodka", price: 12000, available: false },
+                    { name: "Perla Negra", desc: "Arándano y perla negra", price: 12000, available: false, badge: "⭐ Favorito del Público", badgeClass: "badge-favorite" },
+                    { name: "Piña Colada", desc: "Piña, coco y ron tradicional", price: 12000, available: false },
+                    { name: "Pink Rose", desc: "Kola, arándano, vodka y champaña", price: 12000, available: false },
+                    { name: "Pisco Sour", desc: "Uchuva, aguardiente y vodka", price: 12000, available: false },
+                    { name: "Red Fantasy", desc: "Melocotón y vodka", price: 12000, available: false },
+                    { name: "Red Fantasy Rojo", desc: "Sandía, fresa y vodka", price: 12000, available: false },
+                    { name: "Sandía", desc: "Sandía y vodka", price: 12000, available: false },
+                    { name: "Santorini", desc: "Piña, coco y vodka", price: 12000, available: true, badge: "🔥 Más Vendido", badgeClass: "badge-bestseller" },
+                    { name: "Saona", desc: "Asaí y ginebra", price: 12000, available: false },
+                    { name: "Tamarindo", desc: "Tamarindo, tequila y vodka", price: 12000, available: true }
+                ]
+            },
+            {
+                id: "sodas-saborizadas",
+                title: "Sodas Saborizadas (Sin Alcohol)",
+                items: [
+                    { name: "Soda Saborizada Mora Azul", desc: "Agua carbonatada con refrescante toque de mora azul", price: 7000, available: true },
+                    { name: "Soda Saborizada Fresa", desc: "Deliciosa combinación frutal con gas", price: 7000, available: true },
+                    { name: "Soda Saborizada Sandía", desc: "Toque dulce y frutal de sandía", price: 7000, available: true },
+                    { name: "Soda Saborizada Tamarindo", desc: "Exótico toque agridulce de tamarindo", price: 7000, available: true }
+                ]
+            },
+            {
+                id: "sodas-micheladas",
+                title: "Sodas, Bretaña & Hidratantes",
+                items: [
+                    { name: "Cerveza Águila Michelada", desc: "Preparación especial escarchada", price: 7000, available: true },
+                    { name: "Cerveza Poker Michelada", desc: "Preparación especial escarchada", price: 7000, available: true },
+                    { name: "Cerveza Corona Michelada", desc: "Preparación especial escarchada", price: 10000, available: true },
+                    { name: "Cerveza Stella Artois Michelada", desc: "Preparación especial escarchada", price: 10000, available: true },
+                    { name: "Soda Michelada x 300 ml", desc: "Preparación especial escarchada", price: 5000, available: true },
+                    { name: "Soda x 300 ml", desc: "Agua con gas tradicional", price: 4000, available: true },
+                    { name: "Gaseosa en lata x 310", desc: "Variedad de sabores", price: 4000, available: true },
+                    { name: "Energizante Monster", desc: "Bebida energizante importada", price: 13000, available: true },
+                    { name: "Speed lata x 310", desc: "Energizante", price: 4000, available: true },
+                    { name: "Gatorade x 500", desc: "Bebida hidratante", price: 5000, available: true },
+                    { name: "Gatorlit x 620 ml", desc: "Hidratación avanzada", price: 9000, available: true },
+                    { name: "Hidrályte x 640 ml", desc: "Suero rehidratante", price: 7000, available: true }
+                ]
+            },
+            {
+                id: "licores",
+                title: "Licores Nacionales, Medias & Botellas",
+                items: [
+                    { name: "Botella Aguardiente Amarillo x 750 ml", desc: "El anís insuperable de nuestra tierra", price: 80000, available: true },
+                    { name: "Media Aguardiente Amarillo x 375 ml", desc: "Presentación media", price: 45000, available: true },
+                    { name: "Media Aguardiente Antioqueño Azul x 375 ml", desc: "Tradicional sin azúcar", price: 45000, available: true },
+                    { name: "Media Aguardiente Nariño x 375 ml", desc: "Tradición y sabor regional", price: 40000, available: true },
+                    { name: "Media Antioqueño Rojo x 375 ml", desc: "Aguardiente tradicional", price: 40000, available: true },
+                    { name: "Media Ron Viejo de Caldas", desc: "Añejo tradicional", price: 40000, available: true },
+                    { name: "Jagermeister Media", desc: "Licor de hierbas alemán", price: 95000, available: true },
+                    { name: "Botella Vodka Smirnoff Lulo x 750", desc: "Edición especial lulo", price: 90000, available: true },
+                    { name: "Botella Vodka Smirnoff Tamarindo x 750", desc: "Edición especial tamarindo", price: 90000, available: true },
+                    { name: "Media Smirnoff Tamarindo x 375 ml", desc: "Presentación media", price: 45000, available: true }
+                ]
+            },
+            {
+                id: "cervezas",
+                title: "Cervezas & Cómcteles Listos",
+                items: [
+                    { name: "Cerveza Águila Light Lata 330 ml", desc: "Suave y fría", price: 5000, available: true },
+                    { name: "Cerveza Budweiser Lata", desc: "Estilo americano", price: 4000, available: true },
+                    { name: "Cerveza Club Colombia", desc: "Dorada o Roja", price: 5000, available: true },
+                    { name: "Cerveza Corona Extra", desc: "Importada con limón", price: 8000, available: true },
+                    { name: "Cerveza Poker Lata", desc: "La tradicional", price: 5000, available: true },
+                    { name: "Cerveza Stella Artois x 300 ml", desc: "Premium belga", price: 8000, available: true },
+                    { name: "Four Loco 473 ml", desc: "Bebida alcohólica saborizada", price: 20000, available: true },
+                    { name: "Los Cuates Cóctel x 473 ml", desc: "Cóctel listo para tomar", price: 10000, available: true },
+                    { name: "Los Cuates x 269 ml", desc: "Presentación personal", price: 8000, available: true }
+                ]
+            },
+            {
+                id: "varios",
+                title: "Agua, Snacks, Cigarrillos & Varios",
+                items: [
+                    { name: "Agua H2O", desc: "Agua purificada", price: 4000, available: true },
+                    { name: "Agua x 600 ml", desc: "Botella personal", price: 2000, available: true },
+                    { name: "Bombom bum Tajin", desc: "Dulce con toque picante", price: 2000, available: true },
+                    { name: "Bonfiest lua sobre", desc: "Antioctanol e hidratante", price: 3000, available: true },
+                    { name: "Chiclets Trident", desc: "Goma de mascar", price: 500, available: true },
+                    { name: "Chiclets Tumix", desc: "Goma de mascar", price: 300, available: true },
+                    { name: "Cigarrillo Marlboro", desc: "Unidad", price: 2000, available: true }
+                ]
+            }
+        ];
+
+        let activeTab = 'all';
+        let showOnlyAvailable = false;
+        let cart = {};
+        let isCartExpanded = false;
+
+        function formatMoney(amount) {
+            return '$' + amount.toLocaleString('es-CO');
+        }
+
+        function checkPromoDay() {
+            const today = new Date().getDay();
+            if (today === 2 || today === 3) {
+                document.getElementById('promoBanner').style.display = 'block';
+                return true;
+            }
+            return false;
+        }
+
+        function addToCart(name, price) {
+            if (cart[name]) {
+                cart[name].qty++;
+            } else {
+                cart[name] = { price: price, qty: 1 };
+            }
+            updateCartUI();
+        }
+
+        function changeQty(name, change) {
+            if (cart[name]) {
+                cart[name].qty += change;
+                if (cart[name].qty <= 0) {
+                    delete cart[name];
+                }
+            }
+            updateCartUI();
+        }
+
+        function clearCart() {
+            cart = {};
+            isCartExpanded = false;
+            document.getElementById('tableSelect').value = "";
+            updateCartUI();
+        }
+
+        function toggleCartExpand() {
+            isCartExpanded = !isCartExpanded;
+            const cartBar = document.getElementById('cartBar');
+            const toggleText = document.getElementById('toggleText');
+            if (isCartExpanded) {
+                cartBar.classList.add('expanded');
+                toggleText.textContent = "Ocultar detalle 🔽";
+            } else {
+                cartBar.classList.remove('expanded');
+                toggleText.textContent = "Ver detalle 🔼";
+            }
+        }
+
+        function handleSendOrder(event) {
+            event.preventDefault();
+            const selectedLocation = document.getElementById('tableSelect').value;
+            if (!selectedLocation) {
+                alert("⚠️ Por favor selecciona tu número de Mesa o Barra antes de enviar el pedido.");
+                document.getElementById('tableSelect').focus();
+                return false;
+            }
+
+            let totalItems = 0;
+            let totalPrice = 0;
+            let orderSummary = `Hola, deseo hacer el siguiente pedido en Punto Cero:\n📍 Ubicación: *${selectedLocation}*\n\n`;
+
+            for (let name in cart) {
+                totalItems += cart[name].qty;
+                let itemTotal = cart[name].price * cart[name].qty;
+                totalPrice += itemTotal;
+                orderSummary += `- ${cart[name].qty}x ${name} (${formatMoney(itemTotal)})\n`;
+            }
+
+            orderSummary += `\n*Total a pagar: ${formatMoney(totalPrice)}*`;
+
+            const whatsappUrl = "https://wa.me/573225764461?text=" + encodeURIComponent(orderSummary);
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function updateCartUI() {
+            const cartBar = document.getElementById('cartBar');
+            const cartCountText = document.getElementById('cartCountText');
+            const cartTotalPrice = document.getElementById('cartTotalPrice');
+            const cartDetailsPanel = document.getElementById('cartDetailsPanel');
+
+            let totalItems = 0;
+            let totalPrice = 0;
+            let detailsHtml = '';
+
+            for (let name in cart) {
+                totalItems += cart[name].qty;
+                let itemTotal = cart[name].price * cart[name].qty;
+                totalPrice += itemTotal;
+
+                detailsHtml += `
+                    <div class="cart-item-row">
+                        <span class="cart-item-name">${name}</span>
+                        <div class="cart-item-controls">
+                            <button class="qty-btn" onclick="changeQty('${name}', -1)">-</button>
+                            <span>${cart[name].qty}</span>
+                            <button class="qty-btn" onclick="changeQty('${name}', 1)">+</button>
+                            <span class="cart-item-price">${formatMoney(itemTotal)}</span>
+                        </div>
+                    </div>
+                `;
+            }
+
+            cartDetailsPanel.innerHTML = detailsHtml;
+
+            if (totalItems > 0) {
+                cartBar.classList.add('visible');
+                cartCountText.textContent = totalItems + (totalItems === 1 ? ' producto seleccionado' : ' productos seleccionados');
+                cartTotalPrice.textContent = formatMoney(totalPrice);
+            } else {
+                cartBar.classList.remove('visible');
+                cartBar.classList.remove('expanded');
+                isCartExpanded = false;
+                document.getElementById('toggleText').textContent = "Ver detalle 🔼";
+            }
+        }
+
+        function renderMenu() {
+            const container = document.getElementById('menu-content');
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const isPromoActive = checkPromoDay();
+            
+            let html = '';
+            let totalMatches = 0;
+
+            menuSections.forEach(section => {
+                if (activeTab === 'all' || activeTab === section.id) {
+                    let sectionHasItems = false;
+                    let sectionHtml = '';
+                    let availableItemsHtml = '';
+                    let soldOutItemsHtml = '';
+                    let hasAvailable = false;
+                    let hasSoldOut = false;
+
+                    section.items.forEach(item => {
+                        let isItemAvailable = item.available;
+                        const matchesSearch = item.name.toLowerCase().includes(searchTerm) || item.desc.toLowerCase().includes(searchTerm);
+                        const matchesAvailability = !showOnlyAvailable || isItemAvailable;
+                        
+                        if (matchesSearch && matchesAvailability) {
+                            totalMatches++;
+                            sectionHasItems = true;
+                            let finalPrice = isPromoActive && section.id === 'granizados' ? 10000 : item.price;
+                            let priceHtml = '';
+
+                            if (isPromoActive && section.id === 'granizados') {
+                                priceHtml = `
+                                    <div class="item-price-box">
+                                        <span class="old-price">${formatMoney(item.price)}</span>
+                                        <span class="item-price promo">${formatMoney(finalPrice)}</span>
+                                    </div>
+                                `;
+                            } else {
+                                priceHtml = `
+                                    <div class="item-price-box">
+                                        <span class="item-price">${formatMoney(item.price)}</span>
+                                    </div>
+                                `;
+                            }
+
+                            let badgeHtml = item.badge ? `<span class="special-badge ${item.badgeClass}">${item.badge}</span>` : '';
+                            let actionBtn = isItemAvailable ? `<button class="add-btn" onclick="addToCart('${item.name}', ${finalPrice})">➕ Agregar</button>` : '';
+
+                            const cardHtml = `
+                                <div class="menu-item ${isItemAvailable ? '' : 'sold-out'}">
+                                    <div>
+                                        ${badgeHtml}
+                                        <div class="item-header">
+                                            <span class="item-name">${item.name}</span>
+                                            ${priceHtml}
+                                        </div>
+                                        <p class="item-desc">${item.desc}</p>
+                                    </div>
+                                    <div class="item-footer-tag">
+                                        <span class="status-badge ${isItemAvailable ? 'available' : 'soldout'}">
+                                            ${isItemAvailable ? '✨ Disponible Hoy' : '❌ Agotado'}
+                                        </span>
+                                        ${actionBtn}
+                                    </div>
+                                </div>
+                            `;
+
+                            if (section.id === 'granizados') {
+                                if (isItemAvailable) { hasAvailable = true; availableItemsHtml += cardHtml; }
+                                else if (!showOnlyAvailable) { hasSoldOut = true; soldOutItemsHtml += cardHtml; }
+                            } else {
+                                sectionHtml += cardHtml;
+                            }
+                        }
+                    });
+
+                    if (section.id === 'granizados') {
+                        if (hasAvailable) {
+                            html += `<h2 class="section-title">✨ Granizados Disponibles Hoy</h2><div class="items-grid">${availableItemsHtml}</div>`;
+                        }
+                        if (hasSoldOut && (activeTab === 'granizados' || searchTerm === '') && !showOnlyAvailable) {
+                            html += `<h2 class="section-title sold-out-title">❌ Granizados No Disponibles (Agotados)</h2><div class="items-grid">${soldOutItemsHtml}</div>`;
+                        }
+                    } else if (sectionHasItems) {
+                        html += `<h2 class="section-title">${section.title}</h2><div class="items-grid">${sectionHtml}</div>`;
+                    }
+                }
+            });
+
+            if (totalMatches === 0) {
+                html = `<div style="text-align:center; padding: 40px; color: var(--text-muted);">No se encontraron productos con esa búsqueda.</div>`;
+            }
+
+            container.innerHTML = html;
+
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('footer-date').textContent = `Menú actualizado al ${new Date().toLocaleDateString('es-ES', options)}`;
+        }
+
+        function switchCategory(categoryId) {
+            activeTab = categoryId;
+            document.querySelectorAll('.tab-btn:not(.filter-available-btn)').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderMenu();
+        }
+
+        function toggleAvailableOnly() {
+            showOnlyAvailable = !showOnlyAvailable;
+            const btn = document.querySelector('.filter-available-btn');
+            if (showOnlyAvailable) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+            renderMenu();
+        }
+
+        function filterMenu() {
+            renderMenu();
+        }
+
+        function createSnowflake() {
+            const snow = document.createElement('div');
+            snow.classList.add('snowflake');
+            snow.innerHTML = '❄';
+            snow.style.left = Math.random() * window.innerWidth + 'px';
+            snow.style.animationDuration = Math.random() * 3 + 4 + 's';
+            snow.style.opacity = Math.random() * 0.6 + 0.2;
+            snow.style.fontSize = Math.random() * 10 + 10 + 'px';
+            
+            document.body.appendChild(snow);
+            setTimeout(() => { snow.remove(); }, 7000);
+        }
+
+        window.onload = () => {
+            renderMenu(); 
+            setInterval(createSnowflake, 150);
+        };
+    </script>
+</body>
+</html>
